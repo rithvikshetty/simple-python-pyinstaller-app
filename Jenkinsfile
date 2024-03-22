@@ -10,7 +10,15 @@ pipeline {
         stage('Build') {
             steps {
                 git branch: 'master', url: 'https://github.com/rithvikshetty/simple-python-pyinstaller-app/'
-                sh 'python3 -m pip install requirements.txt'
+            }
+        }
+        stage('Environment Set-up') {
+            steps {
+                sh '#!/bin/bash'
+                sh 'rm -rf env'
+                sh 'ls'
+                sh 'python3 -m venv env && . env/bin/activate'
+                sh 'pip install pytest'
                 sh 'python3 ./sources/add2vals.py'
             }
         }
